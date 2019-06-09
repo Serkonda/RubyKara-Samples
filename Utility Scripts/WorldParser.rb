@@ -41,3 +41,6 @@ end
 #-- MAIN --#
 parseWorld
 createFile
+
+# Show a success message
+tools.showMessage("World successfully parsed")
