@@ -1,5 +1,8 @@
 ## World Parser
-#   - MIT License
+#   - Copyright: https://github.com/serkonda/rubykara-samples/blob/master/LICENSE.md
+
+## INSTRUCTIONS
+#   - Help: https://github.com/Serkonda/rubykara-samples/wiki/WorldParser.rb
 
 #-- MAIN --#
 # Get the world size
