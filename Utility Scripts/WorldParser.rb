@@ -20,9 +20,11 @@ def parseWorld
         for y in 0...sizeY
             if @world.isLeaf(x, y)
                 $worldCode += "world.setLeaf(#{x}, #{y}, true); "
-            elsif @world.isTree(x, y) 
-                $worldCode += "world.setTree(#{x}, #{y}, true); "        
-            elsif @world.isMushroom(x, y)
+            end
+            if @world.isTree(x, y) 
+                $worldCode += "world.setTree(#{x}, #{y}, true); "      
+            end  
+            if @world.isMushroom(x, y)
                 $worldCode += "world.setMushroom(#{x}, #{y}, true); "
             end
         end
