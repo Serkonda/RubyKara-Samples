@@ -1,4 +1,5 @@
-## World Parser
+## World Parser 
+#   - Version: 1.1.0 - 2019/06/10
 #   - Copyright: https://github.com/serkonda/rubykara-samples/blob/master/LICENSE.md
 
 ## INSTRUCTIONS
