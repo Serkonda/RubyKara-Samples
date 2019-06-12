@@ -6,9 +6,6 @@
 #   - Help: https://github.com/Serkonda/rubykara-samples/wiki/WorldParser.rb
 
 
-#-- VARIABLES --#
-$worldCode = ""
-
 #-- METHODS --#
 def chooseFilename (msg = nil)
     $filename = @tools.stringInput(msg || "Choose a filename:")
