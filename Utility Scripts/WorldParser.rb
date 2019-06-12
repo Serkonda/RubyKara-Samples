@@ -62,4 +62,4 @@ parseWorld
 createFile
 
 # Show a success message
-tools.showMessage("World successfully parsed")
+tools.showMessage("World successfully parsed to #{$filename}")
