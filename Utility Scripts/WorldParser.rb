@@ -1,15 +1,29 @@
 ## World Parser 
-#   - Version: 1.1.0 - 2019/06/10
+#   - Version: 1.2.0 - 2019/06/12
 #   - Copyright: https://github.com/serkonda/rubykara-samples/blob/master/LICENSE.md
 
 ## INSTRUCTIONS
 #   - Help: https://github.com/Serkonda/rubykara-samples/wiki/WorldParser.rb
 
 
-#-- VARIABLES --#
-$worldCode = ""
-
 #-- METHODS --#
+def chooseFilename (msg = nil)
+    $filename = @tools.stringInput(msg || "Choose a filename:")
+    
+    # Validate the filename
+    if $filename.nil?  # Stop execution if 'Abbrechen' was clicked
+        @tools.showMessage("World parsing canceled")
+        exit!
+    elsif $filename.strip.empty?  # Get a new name if it is empty or only has spaces
+        chooseFilename("Error: Filename cannot be empty!\r\nPlease choose a new name:")
+    end
+
+    # Add the .rb file extension if not present
+    if $filename.split(".").last != "rb"
+        $filename += ".rb"
+    end
+end
+
 def parseWorld
     # Get the world size
     sizeX = @world.getSizeX
@@ -30,18 +44,28 @@ def parseWorld
             end
         end
     end
+ 
+    # Parse position of Kara
+    begin  # Prevent programm from breaking if Kara is not in the world
+        karaX = @kara.getPosition.getX
+        karaY = @kara.getPosition.getY 
+
+        $worldCode += "kara.setPosition(#{karaX}, #{karaY}); "
+    rescue     
+    end
 end
 
 # Create a script file and write all code to it
 def createFile
-    worldGenFile = File.open("parsedWorld.rb", "w")
+    worldGenFile = File.open($filename, "w")
     worldGenFile.puts $worldCode
     worldGenFile.close
 end
 
 #-- MAIN --#
+chooseFilename
 parseWorld
 createFile
 
 # Show a success message
-tools.showMessage("World successfully parsed")
+tools.showMessage("World successfully parsed to #{$filename}")
