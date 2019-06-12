@@ -44,6 +44,15 @@ def parseWorld
             end
         end
     end
+ 
+    # Parse position of Kara
+    begin  # Prevent programm from breaking if Kara is not in the world
+        karaX = @kara.getPosition.getX
+        karaY = @kara.getPosition.getY 
+
+        $worldCode += "kara.setPosition(#{karaX}, #{karaY}); "
+    rescue     
+    end
 end
 
 # Create a script file and write all code to it
