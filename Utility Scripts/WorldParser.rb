@@ -10,6 +10,10 @@
 $worldCode = ""
 
 #-- METHODS --#
+def chooseFilename
+    $filename = @tools.stringInput("Choose a filename:")
+end
+
 def parseWorld
     # Get the world size
     sizeX = @world.getSizeX
@@ -34,12 +38,13 @@ end
 
 # Create a script file and write all code to it
 def createFile
-    worldGenFile = File.open("parsedWorld.rb", "w")
+    worldGenFile = File.open($filename, "w")
     worldGenFile.puts $worldCode
     worldGenFile.close
 end
 
 #-- MAIN --#
+chooseFilename
 parseWorld
 createFile
 
