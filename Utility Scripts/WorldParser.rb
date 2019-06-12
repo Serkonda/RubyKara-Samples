@@ -10,16 +10,15 @@
 $worldCode = ""
 
 #-- METHODS --#
-def chooseFilename
-    $filename = @tools.stringInput("Choose a filename:")
+def chooseFilename (msg = nil)
+    $filename = @tools.stringInput(msg || "Choose a filename:")
     
     # Validate the filename
-    if $filename.nil?
+    if $filename.nil?  # Stop execution if 'Abbrechen' was clicked
         @tools.showMessage("World parsing canceled")
         exit!
-    elsif $filename.strip.empty?
-        @tools.showMessage("World parsing stopped\r\nError: filename cannot be empty")
-        exit!
+    elsif $filename.strip.empty?  # Get a new name if it is empty or only has spaces
+        chooseFilename("Error: Filename cannot be empty!\r\nPlease choose a new name:")
     end
 
     # Add the .rb file extension if not present
