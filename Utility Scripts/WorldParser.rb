@@ -34,13 +34,18 @@ def getCodeToKeep
     return if !File.exist?($filename)
 
     currentCode = ""
-    
+
     # Read the file content
     file = File.open($filename, "r")
     file.each_line{ |line|
         currentCode += line
     }
     file.close
+
+    # Determine which code can be overwritten
+    if currentCode.include?("#--KEEP")
+        $codeToKeep = currentCode[currentCode.index("#--KEEP")..-1]
+    end
 end
 
 def parseWorld
