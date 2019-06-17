@@ -9,6 +9,7 @@
 #-- GLOBALS --#
 $filename = ""
 $worldCode = ""
+$codeToKeep = ""
 
 #-- METHODS --#
 def chooseFilename (msg = nil)
@@ -26,6 +27,11 @@ def chooseFilename (msg = nil)
     if $filename.split(".").last != "rb"
         $filename += ".rb"
     end
+end
+
+def getCodeToKeep
+    # No exisitng file, no existing code
+    return if !File.exist?($filename)
 end
 
 def parseWorld
@@ -65,13 +71,16 @@ end
 # Create a script file and write all code to it
 def createFile
     worldGenFile = File.open($filename, "w")
-    worldGenFile.puts $worldCode
+    worldGenFile.puts ($worldCode + $codeToKeep)
     worldGenFile.close
 end
 
 #-- MAIN --#
 chooseFilename
+
+getCodeToKeep
 parseWorld
+
 createFile
 
 # Show a success message
