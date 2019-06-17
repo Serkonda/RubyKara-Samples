@@ -32,19 +32,19 @@ def parseWorld
     # Get the world size
     sizeX = @world.getSizeX
     sizeY = @world.getSizeY
-    $worldCode = "world.clearAll; world.setSize(#{sizeX}, #{sizeY}); "
+    parsedCode = "@world.clearAll; @world.setSize(#{sizeX}, #{sizeY}); "
 
     # Iterate over world and get world objects
     for x in 0...sizeX
         for y in 0...sizeY
             if @world.isLeaf(x, y)
-                $worldCode += "world.setLeaf(#{x}, #{y}, true); "
+                parsedCode += "@world.setLeaf(#{x}, #{y}, true); "
             end
             if @world.isTree(x, y) 
-                $worldCode += "world.setTree(#{x}, #{y}, true); "      
+                parsedCode += "@world.setTree(#{x}, #{y}, true); "      
             end  
             if @world.isMushroom(x, y)
-                $worldCode += "world.setMushroom(#{x}, #{y}, true); "
+                parsedCode += "@world.setMushroom(#{x}, #{y}, true); "
             end
         end
     end
@@ -54,9 +54,12 @@ def parseWorld
         karaX = @kara.getPosition.getX
         karaY = @kara.getPosition.getY 
 
-        $worldCode += "kara.setPosition(#{karaX}, #{karaY}); "
+        parsedCode += "@kara.setPosition(#{karaX}, #{karaY}); "
     rescue     
     end
+
+    $worldCode = "def setupWorld; #{parsedCode}end\r\n\r\n"  # Write the code as a method
+    $worldCode += "setupWorld\r\n"  # Add the method call
 end
 
 # Create a script file and write all code to it
