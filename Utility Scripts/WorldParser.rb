@@ -6,6 +6,9 @@
 #   - Help: https://github.com/Serkonda/rubykara-samples/wiki/WorldParser.rb
 
 
+#-- CONSTANTS --#
+KEEP_FLAG = "#--KEEP"
+
 #-- GLOBALS --#
 $filename = ""
 $worldCode = ""
@@ -43,8 +46,8 @@ def getCodeToKeep
     file.close
 
     # Determine which code can be overwritten
-    if currentCode.include?("#--KEEP")
-        $codeToKeep = currentCode[currentCode.index("#--KEEP")..-1]
+    if currentCode.include?(KEEP_FLAG)
+        $codeToKeep = currentCode[currentCode.index(KEEP_FLAG)..-1]
     end
 end
 
