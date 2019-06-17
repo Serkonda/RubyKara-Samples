@@ -32,6 +32,15 @@ end
 def getCodeToKeep
     # No exisitng file, no existing code
     return if !File.exist?($filename)
+
+    currentCode = ""
+    
+    # Read the file content
+    file = File.open($filename, "r")
+    file.each_line{ |line|
+        currentCode += line
+    }
+    file.close
 end
 
 def parseWorld
