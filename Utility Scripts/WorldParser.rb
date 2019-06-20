@@ -49,7 +49,7 @@ def getCodeToKeep
     if currentCode.include?(KEEP_FLAG)
         $codeToKeep = currentCode[currentCode.index(KEEP_FLAG)..-1]
     else
-        $codeToKeep = "\r\n#{KEEP_FLAG}\r\n"
+        $codeToKeep = "#{KEEP_FLAG}\r\n"
         $codeToKeep += "setupWorld\r\n"
     end
 end
@@ -84,7 +84,7 @@ def parseWorld
     rescue     
     end
 
-    $worldCode = "def setupWorld; #{parsedCode}end\r\n"  # Write the code as a method
+    $worldCode = "def setupWorld; #{parsedCode}end\r\n\r\n"  # Write the code as a method
 end
 
 # Create a script file and write all code to it
