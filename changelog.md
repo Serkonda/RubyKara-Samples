@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/).
 
 ## World Parser
+### 1.3.0 - 2019/06/20
+#### Added
+- Code after the flag "#--KEEP" is saved
+
+### Changed
+- World generation code now sits in a method
+- Readded the section with global vars
+
 
 ### 1.2.0 - 2019/06/12
 #### Added

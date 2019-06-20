@@ -1,10 +1,18 @@
 ## World Parser 
-#   - Version: 1.2.0 - 2019/06/12
+#   - Version: 1.3.0 - 2019/06/20
 #   - Copyright: https://github.com/serkonda/rubykara-samples/blob/master/LICENSE.md
 
 ## INSTRUCTIONS
 #   - Help: https://github.com/Serkonda/rubykara-samples/wiki/WorldParser.rb
 
+
+#-- CONSTANTS --#
+KEEP_FLAG = "#--KEEP"
+
+#-- GLOBALS --#
+$filename = ""
+$worldCode = ""
+$codeToKeep = ""
 
 #-- METHODS --#
 def chooseFilename (msg = nil)
@@ -24,23 +32,45 @@ def chooseFilename (msg = nil)
     end
 end
 
+def getCodeToKeep
+    # No exisitng file, no existing code
+    return if !File.exist?($filename)
+
+    currentCode = ""
+
+    # Read the file content
+    file = File.open($filename, "r")
+    file.each_line{ |line|
+        currentCode += line
+    }
+    file.close
+
+    # Determine which code can be overwritten
+    if currentCode.include?(KEEP_FLAG)
+        $codeToKeep = currentCode[currentCode.index(KEEP_FLAG)..-1]
+    else
+        $codeToKeep = "#{KEEP_FLAG}\r\n"
+        $codeToKeep += "setupWorld\r\n"
+    end
+end
+
 def parseWorld
     # Get the world size
     sizeX = @world.getSizeX
     sizeY = @world.getSizeY
-    $worldCode = "world.clearAll; world.setSize(#{sizeX}, #{sizeY}); "
+    parsedCode = "@world.clearAll; @world.setSize(#{sizeX}, #{sizeY}); "
 
     # Iterate over world and get world objects
     for x in 0...sizeX
         for y in 0...sizeY
             if @world.isLeaf(x, y)
-                $worldCode += "world.setLeaf(#{x}, #{y}, true); "
+                parsedCode += "@world.setLeaf(#{x}, #{y}, true); "
             end
             if @world.isTree(x, y) 
-                $worldCode += "world.setTree(#{x}, #{y}, true); "      
+                parsedCode += "@world.setTree(#{x}, #{y}, true); "      
             end  
             if @world.isMushroom(x, y)
-                $worldCode += "world.setMushroom(#{x}, #{y}, true); "
+                parsedCode += "@world.setMushroom(#{x}, #{y}, true); "
             end
         end
     end
@@ -50,21 +80,26 @@ def parseWorld
         karaX = @kara.getPosition.getX
         karaY = @kara.getPosition.getY 
 
-        $worldCode += "kara.setPosition(#{karaX}, #{karaY}); "
+        parsedCode += "@kara.setPosition(#{karaX}, #{karaY}); "
     rescue     
     end
+
+    $worldCode = "def setupWorld; #{parsedCode}end\r\n\r\n"  # Write the code as a method
 end
 
 # Create a script file and write all code to it
 def createFile
     worldGenFile = File.open($filename, "w")
-    worldGenFile.puts $worldCode
+    worldGenFile.puts ($worldCode + $codeToKeep)
     worldGenFile.close
 end
 
 #-- MAIN --#
 chooseFilename
+
+getCodeToKeep
 parseWorld
+
 createFile
 
 # Show a success message
