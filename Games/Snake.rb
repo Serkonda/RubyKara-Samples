@@ -11,6 +11,11 @@
 FRAME_DELAY = 500
 
 #-- GLOBALS --#
+$karaPos = nil
+$karaLastPos = nil
+
+$trailPositions = []
+
 $treePlaced = false
 $treePos = nil
 
@@ -32,7 +37,23 @@ def placeTreeRandom
 end
 
 def moveKara
+    $karaLastPos = $karaPos
+    
+    if @kara.treeFront
+        addTrailElement
+    end
+
     @kara.move
+
+    $karaPos = [@kara.getPosition.getX, @kara.getPosition.getY]
+end
+
+def addTrailElement
+    @world.setTree($treePos[0], $treePos[1], false)
+    $treePlaced = false
+
+    $trailPositions.push($karaLastPos)
+    @world.setLeaf($karaLastPos[0], $karaLastPos[1], true)
 end
 
 #-- MAIN --#
