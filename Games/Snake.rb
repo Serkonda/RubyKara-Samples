@@ -11,6 +11,8 @@
 FRAME_DELAY = 500
 
 #-- GLOBALS --#
+$treePlaced = false
+$treePos = nil
 
 #-- METHODS --#
 def setup
@@ -18,6 +20,15 @@ def setup
     @world.setSize(15, 15)
 
     @kara.setPosition(@tools.random(14), @tools.random(14))
+end
+
+def placeTreeRandom
+    x = @tools.random(14)
+    y = @tools.random(14)
+
+    @world.setTree(x, y, true)
+    $treePlaced = true
+    $treePos = [x, y]
 end
 
 def moveKara
@@ -29,6 +40,10 @@ setup
 
 while true
     tools.sleep(FRAME_DELAY)
+
+    if !$treePlaced
+        placeTreeRandom
+    end
 
     moveKara
 end
