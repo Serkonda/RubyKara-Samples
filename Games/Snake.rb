@@ -38,9 +38,13 @@ end
 
 def moveKara
     $karaLastPos = $karaPos
-    
+
     if @kara.treeFront
         addTrailElement
+    else
+        if !$trailPositions.empty?
+            updateTrail
+        end
     end
 
     @kara.move
@@ -54,6 +58,14 @@ def addTrailElement
 
     $trailPositions.push($karaLastPos)
     @world.setLeaf($karaLastPos[0], $karaLastPos[1], true)
+end
+
+def updateTrail
+    @world.setLeaf($trailPositions.first[0], $trailPositions.first[1], false)
+    $trailPositions.shift
+
+    @world.setLeaf($karaLastPos[0], $karaLastPos[1], true)
+    $trailPositions.push($karaLastPos)
 end
 
 #-- MAIN --#
