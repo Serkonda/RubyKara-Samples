@@ -8,7 +8,7 @@
 #       - "turnLeft" and "turnRight" buttons in the editor
 
 #-- CONSTANTS --#
-FRAME_DELAY = 500
+FRAME_DELAY = 400
 
 #-- GLOBALS --#
 $karaPos = nil
@@ -71,7 +71,7 @@ end
 #-- MAIN --#
 setup
 
-while true
+while !kara.onLeaf
     tools.sleep(FRAME_DELAY)
 
     if !$treePlaced
@@ -80,3 +80,5 @@ while true
 
     moveKara
 end
+
+tools.showMessage("Game over!")
