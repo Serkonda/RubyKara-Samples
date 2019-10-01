@@ -3,7 +3,6 @@
 
 ## INSTRUCTIONS
 #   - Put the speed slider to the max right
-#
 #   - Controls:
 #       - "turnLeft" and "turnRight" buttons in the editor
 
@@ -24,12 +23,18 @@ def setup
     @world.clearAll
     @world.setSize(15, 15)
 
-    @kara.setPosition(@tools.random(14), @tools.random(14))
+    $karaPos = [@tools.random(14), @tools.random(14)]
+    @kara.setPosition($karaPos[0], $karaPos[1])
 end
 
 def placeTreeRandom
     x = @tools.random(14)
     y = @tools.random(14)
+
+    while !@world.isEmpty(x,y)
+        x = @tools.random(14)
+        y = @tools.random(14)
+    end
 
     @world.setTree(x, y, true)
     $treePlaced = true
