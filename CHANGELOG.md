@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to any code in this repo will be documented here.
 
+
+## Table of Contents
+- [**World Parser**](https://github.com/Serkonda/rubykara-samples/blob/master/CHANGELOG.md#world-parser)
+- [**Snake**](https://github.com/Serkonda/rubykara-samples/blob/master/CHANGELOG.md#snake)
+
+
 ## World Parser
 ### 1.3.0
 *20/06/2019*
@@ -21,4 +27,10 @@ All notable changes to any code in this repo will be documented here.
 
 ### 1.0.0
 *09/06/2019*
+- **Initial Release**
+
+
+## Snake
+### 1.0.0
+*2019/10/01*
 - **Initial Release**
