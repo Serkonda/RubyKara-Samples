@@ -1,5 +1,5 @@
 ## Snake
-#   - Version: 1.0.0 - 2019/10/01
+#   - Version: 1.1 - 2019/10/22
 
 ## INSTRUCTIONS
 #   - Put the speed slider to the max right
