@@ -84,6 +84,10 @@ def updateTrail
     $trailPositions.push($karaLastPos)
 end
 
+def gameOver
+    @tools.showMessage("Game over!")
+end
+
 #-- MAIN --#
 setup
 
@@ -97,4 +101,4 @@ while !kara.onLeaf
     moveKara
 end
 
-tools.showMessage("Game over!")
+gameOver
