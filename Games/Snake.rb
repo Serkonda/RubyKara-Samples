@@ -84,8 +84,12 @@ def updateTrail
     $trailPositions.push($karaLastPos)
 end
 
+def calculateScore
+	return $trailPositions.length * (10 + DIFFICULTIES.index($frameDelay))
+end
+
 def gameOver
-    @tools.showMessage("Game over!")
+    @tools.showMessage("Game over!\nYour length: #{$trailPositions.length}\nFinal Score: #{calculateScore}")
 end
 
 #-- MAIN --#
