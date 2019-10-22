@@ -7,7 +7,7 @@
 #       - "turnLeft" and "turnRight" buttons in the editor
 
 #-- CONSTANTS --#
-FRAME_DELAY = 400  # Time between two moves
+DIFFICULTIES = [450, 350, 250, 200, 150]  # Time between two moves
 
 #-- GLOBALS --#
 $karaPos = nil
@@ -18,12 +18,17 @@ $trailPositions = []
 $treePlaced = false
 $treePos = nil
 
+$frameDelay = DIFFICULTIES[1]
+
 #-- METHODS --#
 def setup
     @world.clearAll
     @world.setSize(15, 15)
 
-    # Set Kara's position at random
+    # Set the difficulty
+    $frameDelay = DIFFICULTIES[@tools.intInput("Choose difficulty between 1 (easy) and 5 (hard)") - 1]
+
+    # Place Kara at a random position
     $karaPos = [@tools.random(14), @tools.random(14)]
     @kara.setPosition($karaPos[0], $karaPos[1])
 end
@@ -33,7 +38,7 @@ def placeTreeRandom
     y = @tools.random(14)
 
     # Generate new x and y if these are already blocked
-    while !@world.isEmpty(x,y)
+    while !@world.isEmpty(x, y)
         x = @tools.random(14)
         y = @tools.random(14)
     end
@@ -83,7 +88,7 @@ end
 setup
 
 while !kara.onLeaf
-    tools.sleep(FRAME_DELAY)
+    tools.sleep($frameDelay)
 
     if !$treePlaced
         placeTreeRandom
