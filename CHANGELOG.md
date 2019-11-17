@@ -31,7 +31,7 @@ All notable changes to any code in this repo will be documented here.
 
 
 ## Snake
-## 1.1
+### 1.1
 _2019/10/22_
 - Let player choose between different difficulties
 - Scores based on the difficulty
